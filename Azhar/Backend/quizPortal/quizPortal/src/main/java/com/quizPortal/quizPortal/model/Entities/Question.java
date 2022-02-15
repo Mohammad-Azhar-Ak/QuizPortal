@@ -21,7 +21,6 @@ public class Question extends BaseTime {
 
     private Integer marks;
 
-
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

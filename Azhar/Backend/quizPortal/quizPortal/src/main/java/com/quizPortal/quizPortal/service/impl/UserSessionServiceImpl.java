@@ -21,13 +21,9 @@ public class UserSessionServiceImpl implements UserSessionService {
     public UserSession createSession(User user) {
 
         UserSession userSession = new UserSession();
-        while(true) { //ye hatana hai...
-            String userToken = RandomStringUtils.randomAlphanumeric(45).toUpperCase();
-            if (userSessionDao.findByToken(userToken)==null) {
-                userSession.setToken(userToken);
-                break;
-            }
-        }
+
+        String userToken = RandomStringUtils.randomAlphanumeric(45).toUpperCase();
+        userSession.setToken(userToken);
         userSession.setSignInTime(new Date());
         userSession.setUser(user);
         return userSessionDao.save(userSession);
@@ -37,22 +33,25 @@ public class UserSessionServiceImpl implements UserSessionService {
     public UserSession validateSession(String token) {
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null");
+
         UserSession userSession=userSessionDao.findByToken(token);
         if(userSession==null || userSession.getSignOutTime()!=null)
-            throw new AccessDeniedException("Access denied, please signin again");
+            throw new AccessDeniedException("Access denied");
+
         return userSession;
     }
 
     @Override
     public void userLogout(String token) {
+        if(StringUtils.isBlank(token))
+            throw new AccessDeniedException("Token cannot be null");
+
         UserSession loginUser = userSessionDao.findByToken(token);
-        if(loginUser==null)
+        if(loginUser==null||loginUser.getSignOutTime()!=null)
             throw new AccessDeniedException("Invalid user");
-        if (loginUser.getSignOutTime() == null) {
-            loginUser.setSignOutTime(new Date());
-            userSessionDao.save(loginUser);
-        }
-        else
-            throw new AccessDeniedException("User Already logout");
+
+        loginUser.setSignOutTime(new Date());
+        userSessionDao.save(loginUser);
+
     }
 }

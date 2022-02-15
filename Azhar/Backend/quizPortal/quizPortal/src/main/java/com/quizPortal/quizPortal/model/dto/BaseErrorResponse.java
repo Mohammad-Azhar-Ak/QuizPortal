@@ -1,6 +1,6 @@
 package com.quizPortal.quizPortal.model.dto;
 
-public class BaseErrorResponse  {
+public class BaseErrorResponse {
     private Integer code;
     private String message;
 
@@ -8,7 +8,6 @@ public class BaseErrorResponse  {
         this.message = message;
         this.code = code;
     }
-
 
     public String getMessage() {
         return message;
