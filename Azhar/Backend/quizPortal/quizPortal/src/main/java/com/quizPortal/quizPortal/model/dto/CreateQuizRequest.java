@@ -1,7 +1,7 @@
 package com.quizPortal.quizPortal.model.dto;
 
 
-public class CreateUpdateQuizRequest {
+public class CreateQuizRequest {
 
 
     private String title;

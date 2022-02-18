@@ -3,6 +3,7 @@ package com.quizPortal.quizPortal.model.dto;
 import java.util.List;
 
 public class SubmitQuizRequest {
+
     private List<SubmitQuestionsRequest> listOfQuestion;
 
     public List<SubmitQuestionsRequest> getListOfQuestion() {

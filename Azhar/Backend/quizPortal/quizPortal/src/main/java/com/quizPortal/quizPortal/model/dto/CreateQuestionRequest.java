@@ -1,7 +1,7 @@
 package com.quizPortal.quizPortal.model.dto;
 
 
-public class CreateAndUpdateQuestionRequest{
+public class CreateQuestionRequest {
 
     private String statement;
     private Boolean answer;

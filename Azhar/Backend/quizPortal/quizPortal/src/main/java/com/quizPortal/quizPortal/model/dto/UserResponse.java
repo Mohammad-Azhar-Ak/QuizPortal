@@ -2,7 +2,7 @@ package com.quizPortal.quizPortal.model.dto;
 
 import com.quizPortal.quizPortal.model.Gender;
 
-public class UpdateUserResponse{
+public class UserResponse {
 
     private String name;
     private Gender gender;
@@ -10,7 +10,7 @@ public class UpdateUserResponse{
     private String hobbies;
     private String mobile;
 
-    public UpdateUserResponse(String name, Gender gender, String linkedIn, String hobbies, String mobile) {
+    public UserResponse(String name, Gender gender, String linkedIn, String hobbies, String mobile) {
         this.name = name;
         this.gender = gender;
         this.linkedIn = linkedIn;

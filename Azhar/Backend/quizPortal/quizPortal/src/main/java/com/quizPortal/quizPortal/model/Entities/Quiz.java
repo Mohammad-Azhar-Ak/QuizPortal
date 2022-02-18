@@ -3,7 +3,6 @@ package com.quizPortal.quizPortal.model.Entities;
 import com.quizPortal.quizPortal.model.BaseTime;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Quiz extends BaseTime {

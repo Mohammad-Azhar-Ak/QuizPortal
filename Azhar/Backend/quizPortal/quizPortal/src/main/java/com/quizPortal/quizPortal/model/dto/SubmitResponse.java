@@ -1,12 +1,12 @@
 package com.quizPortal.quizPortal.model.dto;
 
-public class AfterSubmitResponse {
+public class SubmitResponse {
     Integer rightCount;
     Integer wrongCount;
     Integer totalScore;
     Integer totalMarks;
 
-    public AfterSubmitResponse(Integer rightCount, Integer wrongCount, Integer totalScore, Integer totalMarks) {
+    public SubmitResponse(Integer rightCount, Integer wrongCount, Integer totalScore, Integer totalMarks) {
         this.rightCount = rightCount;
         this.wrongCount = wrongCount;
         this.totalScore = totalScore;
