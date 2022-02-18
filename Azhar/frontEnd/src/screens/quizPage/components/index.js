@@ -1,5 +1,9 @@
 import QuizPageComponent from './QuizPage'
+import QuizCardComponent from './QuizCard'
+import AnswerDialog from './AnswerDialog'
 
 export {
-    QuizPageComponent
+    QuizPageComponent,
+    QuizCardComponent,
+    AnswerDialog
 }

@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionDao extends JpaRepository<Question, Integer> {
 
-
     List<Question> findAllByQuizId(int quizId);
 }

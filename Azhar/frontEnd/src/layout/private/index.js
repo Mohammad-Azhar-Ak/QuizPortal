@@ -1,31 +1,26 @@
 import React from 'react'
-import { Header, Footer } from '../../shared'
+import { CustomHeader } from '../../shared'
 import {
     Route,
-    BrowserRouter,
-    Routes
+    Switch
 } from 'react-router-dom'
 import { privateRoutes } from '../../navigation/routes';
-import { Grid } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import myTheme from '../../utils/theme'
 
-
-
-const PrivateLayout = ({ }) => {
+const PrivateLayout = () => {
     return (
         <>
-            <div style={{height:"20vh"}}>
-            <Header />
-            </div>
-            <div style={{height:"43vh"}}>
-            <BrowserRouter>
-                <Routes>
-                    {privateRoutes && privateRoutes.map((item, index) => <Route key={index} exact path={item.path} element={item.component} />)}
-                </Routes>
-            </BrowserRouter>
-            </div>
-            <div style={{height:"10vh"}}>
-            <Footer />
-            </div>
+            <ThemeProvider theme={myTheme}>
+                <div style={{ height: "10vh" }}>
+                    <CustomHeader />
+                </div>
+                <div style={{ height: "43vh" }}>
+                    <Switch>
+                        {privateRoutes && privateRoutes.map((item, index) => <Route key={index} exact path={item.path} component={item.component} />)}
+                    </Switch>
+                </div>
+            </ThemeProvider>
         </>
     )
 }

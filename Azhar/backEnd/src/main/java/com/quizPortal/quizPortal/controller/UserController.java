@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path="/user")
 public class UserController {
@@ -43,7 +44,7 @@ public class UserController {
     @PostMapping(path = "/update")
     public BaseResponse<UpdateUserResponse> updateUser(@RequestHeader("Authorization") String token, @RequestBody UpdateUserRequest request){
         if(StringUtils.isBlank(token))
-            throw new AccessDeniedException("Access Denied");
+            throw new AccessDeniedException("Token cannot be null.");
         UpdateUserResponse user =userService.updateUser(request,token);
         return new BaseResponse<>(HttpStatus.OK.value(), "Success", user);
     }
@@ -51,7 +52,7 @@ public class UserController {
     @PostMapping(path ="/logout")
     public BaseResponse<User> userLogout(@RequestHeader("Authorization") String token) {
         if(StringUtils.isBlank(token))
-            throw new AccessDeniedException("Access Denied");
+            throw new AccessDeniedException("Token cannot be null.");
         userSessionService.userLogout(token);
         return new BaseResponse<>(HttpStatus.OK.value(), "User successfully logout.");//isko puchna h isme data: null extra aa raha h
     }

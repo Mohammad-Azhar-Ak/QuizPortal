@@ -1,18 +1,17 @@
-import {Button} from '@mui/material'
+import { Button } from '@mui/material'
 
-const NewButton=({label,type,value,handleClick})=>{
-    return(
+const CustomButton = ({ label, type, handleClick, value }) => {
+    return (
         <Button
-              type={type}
-              fullWidth
-              variant="contained"
-              color="primary"
-              className="newButton"
-              value={value}
-              onClick={handleClick}
-            >
-                {label}
-            </Button>       
+            type={type}
+            variant="contained"
+            color="primary"
+            className="CustomButton"
+            value={value}
+            onClick={handleClick}
+        >
+            {label}
+        </Button>
     )
 }
-export default NewButton
+export default CustomButton

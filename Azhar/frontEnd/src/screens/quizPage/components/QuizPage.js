@@ -1,83 +1,44 @@
-// import React, { Fragment } from 'react'
+import * as React from "react";
+import { Grid } from "@mui/material";
+import { CustomButton } from "../../../shared";
+import { QuizCardComponent } from ".";
+import { AnswerDialog } from "./";
 
-// const QuizPageComponent = ({ }) => {
-//     return (
-//         <Fragment>
-//             <h1 style={{ color: 'green' }}>Welcome to Quiz Page</h1>
-//         </Fragment>
-//     )
-// }
+const QuizComponent = ({ data, onChangeValue, answers, submitQuiz, submitResponse, handleClose, handleOpen }) => {
 
-// export default QuizPageComponent
-
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions,Grid } from '@mui/material';
-import {CustomRadioButton,Button} from '../../../shared';
-import {choice} from '../../../shared/constants'
-const QuizPageComponent=()=> {
-  const btnstyle={margin:'8px 0'}
   return (
-
-    <Grid container padding={5} margin={10}>
-      <Grid item xs={5}>
-    <Card sx={{ maxWidth: 545 }}>
-      <CardActionArea>
-       
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-           Quiz 
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-    
-      <Grid container>
-        <Grid item xs={4}></Grid>
-        
-        <Grid item xs={6}> <CustomRadioButton options={choice}  /> </Grid>
+    <>
+      <Grid container >
+        <Grid item lg={12}>
+          <h1>Questions </h1>
+        </Grid>
+        <Grid item md={12} margin={5}>
+          {data.length ?
+            data.map((item, index) =>
+              <QuizCardComponent
+                index={index}
+                data={item}
+                onChangeValue={onChangeValue}
+                answers={answers}
+              />)
+            : "No Question"}
+        </Grid>
       </Grid>
-      
-      </CardActions>
-    </Card>
-    </Grid>
-    <Grid item xs={5}>
-     <Card sx={{ maxWidth: 545 }}>
-     <CardActionArea>
-      
-       <CardContent>
-         <Typography gutterBottom variant="h5" component="div">
-         Quiz
-         </Typography>
-         <Typography variant="body2" color="text.secondary">
-           Lizards are a widespread group of squamate reptiles, with over 6,000
-           species, ranging across all continents except Antarctica
-         </Typography>
-       </CardContent>
-     </CardActionArea>
-     <CardActions>
-
-     <Grid container>
-        <Grid item xs={4}></Grid>
-        
-        <Grid item xs={6}> <CustomRadioButton options={choice} /> </Grid>
+      <Grid container
+        alignContent={"center"}
+        alignItems="center"
+      >
+        <CustomButton
+          label={"Submit"}
+          handleClick={submitQuiz}
+        />
       </Grid>
-      
-
-     </CardActions>
-   </Card>
-   </Grid>
-            <Grid container> 
-            <Grid item xs={4}> </Grid>
-              <Grid item xs={2}> <Button name='Submit Quiz'/> </Grid>
-            </Grid>
-   </Grid>
+      <AnswerDialog
+        open={handleOpen}
+        submitResponse={submitResponse}
+        handleClose={handleClose}
+      />
+    </>
   );
-}
-export default  QuizPageComponent;
+};
+export default QuizComponent;

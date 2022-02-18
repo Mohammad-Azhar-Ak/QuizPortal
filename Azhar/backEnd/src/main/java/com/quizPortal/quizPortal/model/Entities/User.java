@@ -21,7 +21,7 @@ public class User extends BaseTime {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @JsonIgnore // this is for ignoring "password" in json.
+    @JsonIgnore
     @Column( nullable = false)
     private String password;
 

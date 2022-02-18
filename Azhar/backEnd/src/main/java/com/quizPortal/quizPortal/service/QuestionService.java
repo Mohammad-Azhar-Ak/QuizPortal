@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public interface QuestionService {
 
-
     Question addQuestion(CreateAndUpdateQuestionRequest request, Integer quizId);
 
     List<Question> getAllQuestion(Integer quizId, String token);

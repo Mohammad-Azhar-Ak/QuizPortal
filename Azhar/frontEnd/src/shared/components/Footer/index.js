@@ -6,7 +6,7 @@ import {
     Grid
 } from "@mui/material";
 
-const NewFooter = () => {
+const CustomFooter = () => {
     return(
     <>
         <Grid container justify="center" style={{minHeight: "212px"}} >
@@ -23,4 +23,4 @@ const NewFooter = () => {
     )
 }
 
-export default NewFooter;
+export default CustomFooter;

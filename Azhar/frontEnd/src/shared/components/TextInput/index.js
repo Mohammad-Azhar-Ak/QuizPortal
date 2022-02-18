@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 
-const NewField=({name, type,handleChange,value})=>{
+const CustomTextField=({label,type,handleChange,value,error,helperText})=>{
     return(
         <TextField
               variant="outlined"
@@ -8,15 +8,15 @@ const NewField=({name, type,handleChange,value})=>{
               required
               fullWidth
               name="password"
-              label={name}
+              label={label}
               type={type}
               id="password"
               value = {value}
-              error ={false}
-              helperText ="plz corrrect"
+              error ={error}
+              helperText ={helperText}
               autoComplete="current-password"
               onChange = {(e)=>handleChange(e.target.value)}
             />
     )
 }
-export default NewField
+export default CustomTextField

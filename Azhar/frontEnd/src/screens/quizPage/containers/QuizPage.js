@@ -1,17 +1,87 @@
 import React, { Component } from 'react'
 import { QuizPageComponent } from '../components';
+import base_url from "../../../utils/api";
+import axios from "axios";
+import history from '../../../utils/history';
 
 class QuizPageContainer extends Component {
 
-    constructor(props) {
-        super(props)
+    state = {
+        list: [],
+        answers: {},
+        res: {},
+        open: false
+    }
+
+    componentDidMount = () => {
+        const token = localStorage.getItem('sessionToken');
+        const options = {
+            headers: { "Authorization": `${token}` }
+        };
+        let id = localStorage.getItem("quizId")
+        axios.get(`${base_url}/quiz/${id}/questions`, options)
+            .then((response) => {
+                const list = response.data.data;
+                this.setState({ list });
+            })
+            .catch((error) => {
+                console.log("error");
+            });
+    }
+    onChangeValue = (id, value) => {
+        let { answers } = this.state
+        answers[id] = value;
+        console.log(answers)
+        this.setState({ answers: answers });
+    }
+
+    submitQuiz = () => {
+        let { answers } = this.state
+        let ans = Object.keys(answers).map((id, index) => {
+            return {
+                "id": id,
+                "answer": answers[id]
+            }
+        })
+        const token = localStorage.getItem('sessionToken');
+        const options = {
+            headers: { "Authorization": `${token}` }
+        };
+        let quizId = localStorage.getItem("quizId")
+        axios.post(`${base_url}/quiz/${quizId}/submit`, ans, options)
+            .then((response) => {
+                let res = response.data.data;
+                this.setState({ res: res });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        this.handleOpen();
+        this.setState({ answers: answers });
+    }
+
+    handleClose = () => {
+        this.setState({ open: false });
+        history.push("/home");
+    }
+
+    handleOpen = () => {
+        this.setState({ open: true });
     }
 
     render() {
         return (
-            <QuizPageComponent />
+            <QuizPageComponent
+                data={this.state.list}
+                onChangeValue={this.onChangeValue}
+                answers={this.state.answers}
+                submitQuiz={this.submitQuiz}
+                submitResponse={this.state.res}
+                handleOpen={this.state.open}
+                handleClose={this.handleClose}
+            />
         )
-
     }
 }
 

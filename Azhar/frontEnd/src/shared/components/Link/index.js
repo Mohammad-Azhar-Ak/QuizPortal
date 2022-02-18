@@ -1,10 +1,10 @@
 import React from 'react' 
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom'
 
-const Newlink=({link, body}) => {
+const Customlink=({link, body}) => {
     return(
-        <Link href={link} variant="body2">{body}</Link>
+        <Link to={link}  exact>{body}</Link>
     )
 }
 
-export default Newlink
+export default Customlink

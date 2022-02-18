@@ -7,16 +7,17 @@ import { FormControlLabel } from "@material-ui/core";
 
 const RadioButtonComponent = ({ handleChange, value,options,labelValue }) => {
   const marginTop = { marginTop: 5 }
+  console.log(value)
   return (
     <FormControl component="fieldset" style={marginTop}>
       <FormLabel component="legend">{labelValue}</FormLabel>
       <RadioGroup
         aria-label="RadioButton"
         name="RadioButton"
-        style={{ display: 'primary' }}
-        value={value}
+        style={{ display: 'initial'}}
+        value={value||''}
         onChange={(e) => handleChange(e.target.value)}>
-         {options.map((item,index)=><FormControlLabel value={item.value} control={<Radio />} label={item.label} />)}
+         {options.map((item,index)=><FormControlLabel key ={index} value={item.value} control={<Radio />} label={item.label} />)}
       </RadioGroup>
     </FormControl>
 

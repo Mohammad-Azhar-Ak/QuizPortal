@@ -7,26 +7,26 @@ import Profile from "../screens/profile";
 export const privateRoutes = [
     {
         path: "/home",
-        component: <Home />
+        component: Home
     },
     {
         path: "/quizpage",
-        component: <QuizPage />
+        component: QuizPage
     },
     {
         path: "/profile",
-        component: <Profile />
+        component: Profile
     }
 ];
 
 export const publicRoutes = [
     {
         path: "/",
-        component: <SignIn />
+        component: SignIn
     },
     {
         path:"/signup",
-        component: <SignUp/>
-
+        component: SignUp
     },
+  
 ]

@@ -4,8 +4,8 @@ const gender = [
     { value: "O", label: "Others" }];
 
 const choice = [
-    { value: "true", label: "True" },
-    { value: "false", label: "False" }
+    { value: "true", label: "Yes" },
+    { value: "false", label: "No" }
 
 ]
 

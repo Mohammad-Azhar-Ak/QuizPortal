@@ -19,7 +19,6 @@ import com.quizPortal.quizPortal.dao.UserDao;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     @Autowired
     UserDao userDao;
 
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public LoginSignupResponse createUser(CreateUserRequest request) {
 
         if (StringUtils.isBlank(request.getEmail()))
-            throw new IllegalArgumentException("Null value cannot be accepted in email");
+            throw new IllegalArgumentException("Null value cannot accepted in email");
 
         if (StringUtils.isBlank(request.getName()))
             throw new IllegalArgumentException("Invalid Name");
@@ -56,7 +55,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Invalid Mobile Number, Mobile number must be of 10 digits.");
 
         if (userDao.findByEmail(request.getEmail()) != null)
-            throw new IllegalArgumentException("User with this email already exists.");
+            throw new AccessDeniedException("User already exists.");
 
         User user = new User();
         BCryptPasswordEncoder encodePassword = new BCryptPasswordEncoder(12);
@@ -64,7 +63,6 @@ public class UserServiceImpl implements UserService {
         user.setEmail(request.getEmail());
         user.setMobile(request.getMobile());
         user.setPassword(encodePassword.encode(request.getPassword()));
-
         userDao.save(user);
         UserSession userSession = userSessionService.createSession(user);
         return new LoginSignupResponse(userSession.getToken(), user.getName());
@@ -73,12 +71,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UpdateUserResponse getUser(String token) {
         if (StringUtils.isBlank(token))
-            throw new AccessDeniedException("Unauthorized User");
+            throw new AccessDeniedException("Token cannot be null.");
 
         UserSession userSession = userSessionDao.findByToken(token);
 
         if (userSession == null || userSession.getSignOutTime() != null)
-            throw new AccessDeniedException("Unauthorized User, signIn Again.");
+            throw new AccessDeniedException("Invalid user");
 
         User user = userSession.getUser();
 
@@ -92,27 +90,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public UpdateUserResponse updateUser(UpdateUserRequest request, String token) {
         if (StringUtils.isBlank(token))
-            throw new AccessDeniedException("Unauthorized User, Please signIn again.");
+            throw new AccessDeniedException("Token cannot be null");
 
         if (StringUtils.isBlank(request.getName()))
-            throw new IllegalArgumentException("Name cannot be empty, Please provide valid name.");
+            throw new IllegalArgumentException("Name cannot be null");
 
         if (StringUtils.isBlank(request.getMobile()))
-            throw new IllegalArgumentException("Mobile Number cannot be empty, Please provide 10 digits number.");
+            throw new IllegalArgumentException("Mobile number cannot be null");
 
         if (!request.getMobile().matches("\\d{10}"))
-            throw new IllegalArgumentException("Please enter a valid mobile number.");
+            throw new IllegalArgumentException("Invalid mobile number.");
 
-//        if (request.getGender() == null)
-//            throw new IllegalArgumentException("Gender cannot be null, Please select value" +
-//                    "0 for male, 1 for female, 2 for others.");
         UserSession userSession = userSessionDao.findByToken(token);
         if (userSession == null)
-            throw new IllegalArgumentException("Unauthorized User, Login Again");//Access denied
+            throw new AccessDeniedException("Invalid user.");
 
         User user = userSession.getUser();
         if (user == null)
-            throw new IllegalArgumentException("Invalid user");
+            throw new AccessDeniedException("Invalid user");
 
         user.setName(request.getName());
         user.setMobile(request.getMobile());
@@ -135,14 +130,13 @@ public class UserServiceImpl implements UserService {
         User user = userDao.findByEmail(request.getEmail());
         if (user == null)
             throw new IllegalArgumentException("User Not Registered");
-        //email check + password check
+
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
-        if (!bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword()))
+        if (!request.getEmail().equals(user.getEmail())||!bCryptPasswordEncoder.matches(request.getPassword(),
+                user.getPassword())) //yaha change kiya hai.
             throw new IllegalArgumentException("Invalid Credentials");
 
         UserSession userSession = userSessionService.createSession(user);
         return new LoginSignupResponse(userSession.getToken(), user.getName());
-
-
     }
 }

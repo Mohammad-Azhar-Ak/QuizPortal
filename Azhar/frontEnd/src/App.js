@@ -1,8 +1,13 @@
 import Navigation from './navigation'
+import history from './utils/history';
+import { Router } from 'react-router-dom';
 
 function App() {
   return (
-    <Navigation />
+    
+      <Router history={history}>
+        <Navigation />
+      </Router>
   );
 }
 

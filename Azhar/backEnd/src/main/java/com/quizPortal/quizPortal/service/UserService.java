@@ -15,5 +15,4 @@ public interface UserService {
 
     LoginSignupResponse userLogin(CreateUserRequest request);
 
-   // void userLogout(String token);
 }
