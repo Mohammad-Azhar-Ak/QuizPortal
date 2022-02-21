@@ -6,6 +6,7 @@ const CustomPositionedSnackbar=({anchorOrigin, open, onClose, message})=> {
   return (
     <div>
       <Snackbar
+        sx={{background:"#c0ca33"}}
         anchorOrigin={anchorOrigin}
         open={open}
         onClose={onClose}

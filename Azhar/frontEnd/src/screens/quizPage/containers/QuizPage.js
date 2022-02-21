@@ -37,18 +37,20 @@ class QuizPageContainer extends Component {
 
     submitQuiz = () => {
         let { answers } = this.state
-        let ans = Object.keys(answers).map((id, index) => {
+        let listOfQuestion = Object.keys(answers).map((id, index) => {
             return {
                 "id": id,
                 "answer": answers[id]
             }
         })
+        let QuestionList = { listOfQuestion }
+        console.log(listOfQuestion)
         const token = localStorage.getItem('sessionToken');
         const options = {
             headers: { "Authorization": `${token}` }
         };
         let quizId = localStorage.getItem("quizId")
-        axios.post(`${base_url}/quiz/${quizId}/submit`, ans, options)
+        axios.post(`${base_url}/quiz/${quizId}/submit`, QuestionList, options)
             .then((response) => {
                 let res = response.data.data;
                 this.setState({ res: res });

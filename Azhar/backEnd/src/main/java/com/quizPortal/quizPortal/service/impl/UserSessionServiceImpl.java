@@ -34,7 +34,7 @@ public class UserSessionServiceImpl implements UserSessionService {
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null");
 
-        UserSession userSession=userSessionDao.findByToken(token);
+        UserSession userSession = userSessionDao.findByToken(token);
         if(userSession==null || userSession.getSignOutTime()!=null)
             throw new AccessDeniedException("Access denied");
 
@@ -47,7 +47,7 @@ public class UserSessionServiceImpl implements UserSessionService {
             throw new AccessDeniedException("Token cannot be null");
 
         UserSession loginUser = userSessionDao.findByToken(token);
-        if(loginUser==null||loginUser.getSignOutTime()!=null)
+        if(loginUser==null || loginUser.getSignOutTime()!=null)
             throw new AccessDeniedException("Invalid user");
 
         loginUser.setSignOutTime(new Date());

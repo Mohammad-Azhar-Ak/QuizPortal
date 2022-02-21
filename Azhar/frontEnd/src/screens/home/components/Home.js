@@ -7,10 +7,7 @@ const HomeComponent = ({ data, handleClick }) => {
  
   return (
     <  Grid container sx={{
-      backgroundColor: "primary",
-      backgroundImage: `url(${CustomBackground})`,
-      height: "90vh",
-      width: "210vh",
+      backgroundColor: "#eeff41",
   }}>
       <Grid container
         spacing={0}

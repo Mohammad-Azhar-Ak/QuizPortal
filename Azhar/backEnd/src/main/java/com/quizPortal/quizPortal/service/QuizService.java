@@ -1,15 +1,13 @@
 package com.quizPortal.quizPortal.service;
 
 import com.quizPortal.quizPortal.model.Entities.Quiz;
-import com.quizPortal.quizPortal.model.dto.CreateUpdateQuizRequest;
+import com.quizPortal.quizPortal.model.dto.CreateQuizRequest;
 
 import java.util.List;
 
 public interface QuizService {
 
-    Quiz createQuiz(CreateUpdateQuizRequest request);
-
-    Quiz getQuiz(Integer quizId);
+    Quiz createQuiz(CreateQuizRequest request);
 
     List<Quiz> getAllQuiz(String token);
 }

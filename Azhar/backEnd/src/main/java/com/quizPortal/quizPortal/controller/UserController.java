@@ -34,18 +34,18 @@ public class UserController {
     }
 
     @GetMapping(path = "/profile")
-    public BaseResponse<UpdateUserResponse> getUser(@RequestHeader("Authorization")String token){
+    public BaseResponse<UserResponse> getUser(@RequestHeader("Authorization")String token){
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null.");
-        UpdateUserResponse user = userService.getUser(token);
+        UserResponse user = userService.getUser(token);
         return new BaseResponse<>(HttpStatus.OK.value(), "Success", user);
     }
 
     @PostMapping(path = "/update")
-    public BaseResponse<UpdateUserResponse> updateUser(@RequestHeader("Authorization") String token, @RequestBody UpdateUserRequest request){
+    public BaseResponse<UserResponse> updateUser(@RequestHeader("Authorization") String token, @RequestBody UpdateUserRequest request){
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null.");
-        UpdateUserResponse user =userService.updateUser(request,token);
+        UserResponse user = userService.updateUser(request,token);
         return new BaseResponse<>(HttpStatus.OK.value(), "Success", user);
     }
 
@@ -54,6 +54,6 @@ public class UserController {
         if(StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null.");
         userSessionService.userLogout(token);
-        return new BaseResponse<>(HttpStatus.OK.value(), "User successfully logout.");//isko puchna h isme data: null extra aa raha h
+        return new BaseResponse<>(HttpStatus.OK.value(), "User successfully logout.");
     }
 }

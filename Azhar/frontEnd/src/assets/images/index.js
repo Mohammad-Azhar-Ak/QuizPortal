@@ -1,5 +1,5 @@
-const CustomLogo = require('./signin.jpg')
-const SignUpImg = require('./signup.jpg')
+const CustomLogo = require('./newsiginjpg.jpg')
+const SignUpImg = require('./newsiginjpg.jpg')
 const CustomBackground = require('./newbgi.jpg')
 
 export{

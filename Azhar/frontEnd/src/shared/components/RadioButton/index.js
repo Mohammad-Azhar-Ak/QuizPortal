@@ -17,7 +17,7 @@ const RadioButtonComponent = ({ handleChange, value,options,labelValue }) => {
         style={{ display: 'initial'}}
         value={value||''}
         onChange={(e) => handleChange(e.target.value)}>
-         {options.map((item,index)=><FormControlLabel key ={index} value={item.value} control={<Radio />} label={item.label} />)}
+         {options.map((item,index)=><FormControlLabel key ={index} value={item.value} control={<Radio size="small" />} label={item.label} />)}
       </RadioGroup>
     </FormControl>
 

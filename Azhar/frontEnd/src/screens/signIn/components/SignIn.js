@@ -10,10 +10,14 @@ import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import { CustomLogo } from '../../../assets/images';
+import { FormControl } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LoginIcon from '@mui/icons-material/Login';
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '100vh',
+    height: '93vh',
+    backgroundColor:"#f0f4c3",
   },
   imageStyle: {
     padding: 30,
@@ -25,15 +29,18 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: '#f0f4c3',
+    marginTop: "50px"
   },
   form: {
     width: '80%',
   },
   signinStyle: {
     padding: "50px 30px 30px 50px",
+    backgroundColor:"#f0f4c3"
   },
   text: {
-    margin: "78px",
+    margin: "15px",
   }
 }));
 
@@ -42,7 +49,6 @@ const SignInComponent = ({ data, handleChange, handleClick, error }) => {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
       <Grid item xs={0} sm={0} md={6} >
         <img
           src={CustomLogo}
@@ -51,7 +57,7 @@ const SignInComponent = ({ data, handleChange, handleClick, error }) => {
       </Grid>
       <Grid item
         xs={12}
-        sm={6}
+        sm={12}
         md={6}
         component={Paper}
         elevation={0}
@@ -62,7 +68,9 @@ const SignInComponent = ({ data, handleChange, handleClick, error }) => {
           className={classes.paper}
         >
           <Avatar>
-            <LockIcon />
+            <LoginIcon
+            color="secondary"
+             />
           </Avatar>
           <Typography
             component="h1"
@@ -70,29 +78,33 @@ const SignInComponent = ({ data, handleChange, handleClick, error }) => {
           >
             Sign in
           </Typography>
+          <FormControl sx={{minWidth:"70%"}}>
           <CustomInput
-            label='email'
+            label='Email'
             type='text'
             value={data.email}
             handleChange={(value) => handleChange(value, 'email')}
             error={error.email}
             helperText={error.email}
+            placeholder="Enter your email"
           />
           <CustomInput
-            label='password'
+            label='Password'
             type='password'
             value={data.password}
             handleChange={(value) => handleChange(value, 'password')}
             error={error.password}
             helperText={error.password}
+            placeholder="Enter your password"
           />
+           </FormControl>
           <CustomButton
             label='signIn'
             type='submit'
             value='Submit'
             handleClick={handleClick} />
 
-          <Grid container >
+         
             <Grid item
               justify='center'
               className={classes.text}>
@@ -100,7 +112,8 @@ const SignInComponent = ({ data, handleChange, handleClick, error }) => {
                 body="Don't have an account? Sign Up"
                 link='/signup' />
             </Grid>
-          </Grid>
+          
+         
         </div>
       </Grid>
     </Grid>

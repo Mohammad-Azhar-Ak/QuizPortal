@@ -12,7 +12,7 @@ const PrivateLayout = () => {
     return (
         <>
             <ThemeProvider theme={myTheme}>
-                <div style={{ height: "10vh" }}>
+                <div style={{ height: "8vh" }}>
                     <CustomHeader />
                 </div>
                 <div style={{ height: "43vh" }}>

@@ -18,7 +18,7 @@ const ProfileComponent = ({ data, handleChange, handleClick }) => {
         width: 400,
         margin: "25px auto",
         height: "75vh",
-        backgroundColor: "#c0ca33",
+        backgroundColor: "#d4e157",
     };
     const headerStyle = {
         margin: 0
@@ -31,13 +31,13 @@ const ProfileComponent = ({ data, handleChange, handleClick }) => {
             sx={{
                 backgroundColor: "primary",
                 backgroundImage: `url(${CustomBackground})`,
-                height: "90vh",
+                height: "92vh",
                 width: "212vh"
             }}>
             <Paper elevation={20} style={paperStyle} >
                 <Grid align="center">
                     <Avatar>
-                        <PersonIcon fontSize="large" sx={{color:"#827717"}}/>
+                        <PersonIcon fontSize="large" sx={{color:"#009688"}}/>
                     </Avatar>
                     <h2 style={headerStyle}>Profile</h2>
                 </Grid>
@@ -45,14 +45,14 @@ const ProfileComponent = ({ data, handleChange, handleClick }) => {
                     <FormControl>
                         <CustomInput
                             type="text"
-                            placeholder=""
+                            placeholder="Enter your name"
                             label="Name"
                             value={data.name}
                             handleChange={(value) => handleChange("name", value)}
                         />
                         <CustomInput
                             type="number"
-                            placeholder=""
+                            placeholder="Enter your mobile number"
                             label="Mobile"
                             value={data.mobile}
                             handleChange={(value) => handleChange("mobile", value)}
@@ -65,19 +65,19 @@ const ProfileComponent = ({ data, handleChange, handleClick }) => {
                         />
                         <CustomInput
                             type="text"
-                            placeholder=""
+                            placeholder="Enter your profile link"
                             label="LinkedIn"
                             value={data.linkedIn}
                             handleChange={(value) => handleChange("linkedIn", value)}
                         />
                         <CustomInput
                             type="text"
-                            placeholder=""
+                            placeholder="Write your hobbies"
                             label="Hobbies"
                             value={data.hobbies}
                             handleChange={(value) => handleChange("hobbies", value)}
                         />
-                        <CustomButton label="Update" type="Submit" handleClick={handleClick} />
+                        <CustomButton label="Update" type="submit" handleClick={handleClick} />
                     </FormControl>
 
                 </Grid>

@@ -6,7 +6,7 @@ import com.quizPortal.quizPortal.dao.UserSessionDao;
 import com.quizPortal.quizPortal.model.dto.CreateUserRequest;
 import com.quizPortal.quizPortal.model.dto.LoginSignupResponse;
 import com.quizPortal.quizPortal.model.dto.UpdateUserRequest;
-import com.quizPortal.quizPortal.model.dto.UpdateUserResponse;
+import com.quizPortal.quizPortal.model.dto.UserResponse;
 import com.quizPortal.quizPortal.service.UserService;
 import com.quizPortal.quizPortal.service.UserSessionService;
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isBlank(request.getPassword()))
             throw new IllegalArgumentException("Invalid Password");
 
-        if (StringUtils.isBlank(request.getMobile()))
-            throw new IllegalArgumentException("Invalid Mobile Number");
+        if (StringUtils.isBlank(request.getMobile()) || !request.getMobile().matches("\\d{10}"))
+            throw new IllegalArgumentException("Invalid Mobile Number,Mobile number must be of 10 digits.");
 
         if (!request.getEmail().matches("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$"))
             throw new IllegalArgumentException("Invalid Email");
@@ -50,9 +50,6 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Please enter a valid password having atleast a digit," +
                     " a lowercase character, an uppercase character," +
                     " a special character and should be of minimum length 8 without any space.");
-
-        if (!request.getMobile().matches("\\d{10}"))
-            throw new IllegalArgumentException("Invalid Mobile Number, Mobile number must be of 10 digits.");
 
         if (userDao.findByEmail(request.getEmail()) != null)
             throw new AccessDeniedException("User already exists.");
@@ -69,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UpdateUserResponse getUser(String token) {
+    public UserResponse getUser(String token) {
         if (StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null.");
 
@@ -83,22 +80,19 @@ public class UserServiceImpl implements UserService {
         if (user == null)
             throw new IllegalArgumentException("Unauthorized User, signIn Again.");
 
-        return new UpdateUserResponse(user.getName(), user.getGender(),
+        return new UserResponse(user.getName(), user.getGender(),
                 user.getLinkedIn(), user.getHobbies(), user.getMobile());
     }
 
     @Override
-    public UpdateUserResponse updateUser(UpdateUserRequest request, String token) {
+    public UserResponse updateUser(UpdateUserRequest request, String token) {
         if (StringUtils.isBlank(token))
             throw new AccessDeniedException("Token cannot be null");
 
         if (StringUtils.isBlank(request.getName()))
-            throw new IllegalArgumentException("Name cannot be null");
+            throw new IllegalArgumentException("Name cannot be null or empty");
 
-        if (StringUtils.isBlank(request.getMobile()))
-            throw new IllegalArgumentException("Mobile number cannot be null");
-
-        if (!request.getMobile().matches("\\d{10}"))
+        if (StringUtils.isBlank(request.getMobile()) || !request.getMobile().matches("\\d{10}"))
             throw new IllegalArgumentException("Invalid mobile number.");
 
         UserSession userSession = userSessionDao.findByToken(token);
@@ -115,25 +109,25 @@ public class UserServiceImpl implements UserService {
         user.setLinkedIn(request.getLinkedIn());
         user.setGender(request.getGender());
         userDao.save(user);
-        return new UpdateUserResponse(user.getName(), user.getGender(),
+        return new UserResponse(user.getName(), user.getGender(),
                 user.getLinkedIn(), user.getHobbies(), user.getMobile());
     }
 
     @Override
     public LoginSignupResponse userLogin(CreateUserRequest request) {
         if (StringUtils.isBlank(request.getEmail()))
-            throw new IllegalArgumentException("Please provide valid email.");
+            throw new IllegalArgumentException("Email cannot be empty or null.");
 
         if (StringUtils.isBlank(request.getPassword()))
-            throw new IllegalArgumentException("Password cannot be empty.");
+            throw new IllegalArgumentException("Password cannot be empty or null.");
 
         User user = userDao.findByEmail(request.getEmail());
         if (user == null)
             throw new IllegalArgumentException("User Not Registered");
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
-        if (!request.getEmail().equals(user.getEmail())||!bCryptPasswordEncoder.matches(request.getPassword(),
-                user.getPassword())) //yaha change kiya hai.
+        if (!request.getEmail().equals(user.getEmail()) || !bCryptPasswordEncoder.matches(request.getPassword(),
+                user.getPassword()))
             throw new IllegalArgumentException("Invalid Credentials");
 
         UserSession userSession = userSessionService.createSession(user);

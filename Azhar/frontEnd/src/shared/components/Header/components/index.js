@@ -44,9 +44,9 @@ const HeaderComponent=({anchorEl,handleClose,handleMenu})=> {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => handleClose(1)}>Profile</MenuItem>
-              <MenuItem onClick={() => handleClose(2)}>Home</MenuItem>
-              <MenuItem onClick={() => handleClose(3)}>LogOut</MenuItem>
+              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(1)}>Profile</MenuItem>
+              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(2)}>Home</MenuItem>
+              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(3)}>LogOut</MenuItem>
             </Menu>
           </div>
         </Toolbar>

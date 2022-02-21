@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 
-const CustomTextField=({label,type,handleChange,value,error,helperText})=>{
+const CustomTextField=({label,type,handleChange,value,error,helperText,placeholder})=>{
     return(
         <TextField
               variant="outlined"
@@ -8,6 +8,7 @@ const CustomTextField=({label,type,handleChange,value,error,helperText})=>{
               required
               fullWidth
               name="password"
+              placeholder={placeholder}
               label={label}
               type={type}
               id="password"

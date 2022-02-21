@@ -5,7 +5,7 @@ public class SubmitQuestionsRequest {
     private Integer id;
     private Boolean answer;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
