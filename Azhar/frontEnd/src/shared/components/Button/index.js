@@ -1,17 +1,19 @@
 import { Button } from '@mui/material'
 
-const CustomButton = ({ label, type, handleClick, value }) => {
+const CustomButton = ({ label, type, handleClick, value, className}) => {
+    
     return (
         <Button
             type={type}
+           
             margin="normal"
             variant="contained"
-            color="primary"
-            className="CustomButton"
+            color="secondary"
+            className={`${"CustomButton"} ${className}`} 
             value={value}
             onClick={handleClick}
         >
-            {label}
+             {label}
         </Button>
     )
 }

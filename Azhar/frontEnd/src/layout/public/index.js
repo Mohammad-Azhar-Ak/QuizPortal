@@ -4,22 +4,36 @@ import {
     Switch
 } from 'react-router-dom'
 import { publicRoutes } from '../../navigation/routes';
-import { CustomPublicHeader } from '../../shared';
 import { ThemeProvider } from '@mui/material/styles';
 import myTheme from '../../utils/theme'
+import { CustomHeader } from '../../shared'
+import { Grid } from '@mui/material';
 
-const PublicLayout = ({ }) => {
+const PublicLayout = () => {
     return (
         <>
-            <ThemeProvider theme={myTheme}>
-                <div style={{ height: "7vh"}} >
-                    <CustomPublicHeader/>
-                </div>
-                <div style={{ height: "80vh" }}>
+            <ThemeProvider
+                theme={myTheme}
+            >
+                <Grid
+                    sx={{
+                        height: "6vh"
+                    }} >
+                    <CustomHeader />
+                </Grid>
+                <Grid
+                    sx={{
+                        height: "94vh"
+                    }}>
                     <Switch>
-                        {publicRoutes && publicRoutes.map((item, index) => <Route key={index} exact path={item.path} component={item.component} />)}
+                        {publicRoutes && publicRoutes.map((item, index) => <Route
+                            key={index}
+                            exact
+                            path={item.path}
+                            component={item.component}
+                        />)}
                     </Switch>
-                </div>
+                </Grid>
             </ThemeProvider>
         </>
     )

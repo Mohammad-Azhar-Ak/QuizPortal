@@ -7,19 +7,32 @@ import {
 import { privateRoutes } from '../../navigation/routes';
 import { ThemeProvider } from '@mui/material/styles';
 import myTheme from '../../utils/theme'
+import { Grid } from '@mui/material';
 
 const PrivateLayout = () => {
     return (
         <>
             <ThemeProvider theme={myTheme}>
-                <div style={{ height: "8vh" }}>
+                <Grid
+                    sx={{
+                        height: "8vh"
+                    }}>
                     <CustomHeader />
-                </div>
-                <div style={{ height: "43vh" }}>
+                </Grid>
+                <Grid
+                    sx={{
+                        height: "92vh",
+                        backgroundColor:"#fce9ef"
+                    }}>
                     <Switch>
-                        {privateRoutes && privateRoutes.map((item, index) => <Route key={index} exact path={item.path} component={item.component} />)}
+                        {privateRoutes && privateRoutes.map((item, index) => <Route
+                            key={index}
+                            exact
+                            path={item.path}
+                            component={item.component}
+                        />)}
                     </Switch>
-                </div>
+                </Grid>
             </ThemeProvider>
         </>
     )

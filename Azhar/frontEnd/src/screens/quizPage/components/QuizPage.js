@@ -1,21 +1,35 @@
 import * as React from "react";
 import { Grid } from "@mui/material";
-import { CustomButton, CustomQuestionCard } from "../../../shared";
+import { CustomButton, CustomQuestionCard, CustomProgress} from "../../../shared";
 import { AnswerDialog } from "./";
+import { makeStyles } from '@mui/styles';
 
+
+
+const useStyles = makeStyles(() => ({
+  buttonStyle: {
+    "&.MuiButtonBase-root": {
+      backgroundColor: "#801313",
+      marginTop: "20px",
+      color: "#ffd7db",
+      width: "147%",
+      padding: "5px"
+    }
+  }
+}));
 const QuizComponent = ({ data, onChangeValue, answers, submitQuiz, submitResponse, handleClose, handleOpen }) => {
-
+  const classes = useStyles();
   return (
     <>
       <Grid container sx={{
-        backgroundColor: "#eeff41",
+        backgroundColor: "#fce9ef",
       }} >
         <Grid container
           spacing={0}
           direction="row"
           alignItems="center"
           justifyContent="center"
-          backgroundColor="#f0f4c3"
+          backgroundColor="#fce9ef"
 
         >
           <Grid item sx={12}>
@@ -37,23 +51,26 @@ const QuizComponent = ({ data, onChangeValue, answers, submitQuiz, submitRespons
                 onChangeValue={onChangeValue}
                 answers={answers}
               />  </Grid>)
-            : "No Question"}
+            : <CustomProgress/>}
         </Grid>
-      <Grid container
-        alignContent={"center"}
-        alignItems="center"
-        justifyContent= "center"
-        spacing={2}
-        margin="2px"
-      >
-        <Grid item>
-          <CustomButton
-            label={"Submit"}
-            handleClick={submitQuiz}
-            type={"submit"}
-          />
+        <Grid container
+          alignContent={"center"}
+          alignItems="center"
+          justifyContent="center"
+          spacing={2}
+          margin="4px"
+        >
+          <Grid item  sx={{
+            padding: "20px",
+          }}>
+            <CustomButton
+              label="Submit"
+              handleClick={submitQuiz}
+              type={"submit"}
+              className={classes.buttonStyle}
+            />
+          </Grid>
         </Grid>
-      </Grid>
       </Grid>
       <AnswerDialog
         open={handleOpen}

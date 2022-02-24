@@ -15,6 +15,7 @@ class QuizPageContainer extends Component {
 
     componentDidMount = () => {
         const token = localStorage.getItem('sessionToken');
+        if(token){
         const options = {
             headers: { "Authorization": `${token}` }
         };
@@ -25,13 +26,19 @@ class QuizPageContainer extends Component {
                 this.setState({ list });
             })
             .catch((error) => {
-                console.log("error");
+                console.log(error);
+                localStorage.removeItem("sessionToken");
+                window.location.href = "/";
             });
+        }
+        else{
+            localStorage.removeItem("sessionToken");
+            window.location.href="/";
+        }
     }
     onChangeValue = (id, value) => {
         let { answers } = this.state
         answers[id] = value;
-        console.log(answers)
         this.setState({ answers: answers });
     }
 
@@ -44,8 +51,8 @@ class QuizPageContainer extends Component {
             }
         })
         let QuestionList = { listOfQuestion }
-        console.log(listOfQuestion)
         const token = localStorage.getItem('sessionToken');
+        if(token){
         const options = {
             headers: { "Authorization": `${token}` }
         };
@@ -57,10 +64,16 @@ class QuizPageContainer extends Component {
             })
             .catch((error) => {
                 console.log(error);
+                localStorage.removeItem("sessionToken");
+                window.location.href = "/";
             });
-
         this.handleOpen();
         this.setState({ answers: answers });
+        }
+        else{
+            localStorage.removeItem("sessionToken");
+            window.location.href="/";
+        }
     }
 
     handleClose = () => {

@@ -11,7 +11,8 @@ class SignInContainer extends React.Component {
         super()
         this.state = {
             data: {},
-            error: {}
+            error: {},
+            open: false
         }
     }
 
@@ -28,16 +29,13 @@ class SignInContainer extends React.Component {
             };
             axios.post(`${base_url}/user/login`, this.state.data, options)
                 .then((response) => {
-                    console.log(response);
-                    console.log("success");
                     localStorage.setItem('sessionToken', response.data.data.token);
                     window.location.href="/home"
                 })
                 .catch((error) => {
                     console.log(error);
-                    console.log("error");
+                    this.setState({ open: true });
                 });
-            console.log(this.state.data)
         }
     }
     validation = () => {
@@ -59,14 +57,24 @@ class SignInContainer extends React.Component {
         return error;
     }
 
+    handleClose = () => {
+        this.setState({ open: false });
+    }
+
+    handleLink=()=>{
+        history.push("/signup");
+    }
+
     render() {
-        console.log(this.state.data);
         return (
             <SignInComponent
                 data={this.state.data}
                 handleChange={this.handleChange}
                 handleClick={this.handleClick}
-                error={this.state.error} />
+                error={this.state.error}
+                handleClose={this.handleClose}
+                open={this.state.open}
+                handleLink={this.handleLink} />
         )
     }
 }

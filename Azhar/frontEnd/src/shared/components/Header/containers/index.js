@@ -4,13 +4,12 @@ import axios from "axios";
 import base_url from "../../../../utils/api"
 import history from "../../../../utils/history";
 
-
 class HeaderContainer extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            anchorEl: null
+            anchorEl: null,
         }
     }
 
@@ -19,22 +18,25 @@ class HeaderContainer extends Component {
     };
 
     handleClose = (id) => {
-        if (id == 1) history.push("/profile");
-        if (id == 2) history.push("/home");
+        const token = localStorage.getItem('sessionToken');
+        if (id == 1) {
+            history.push("/profile");
+        }
+        if (id == 2) {
+            history.push("/home");
+        }
         if (id == 3) {
-            const token = localStorage.getItem('sessionToken');
+            
             const options = {
                 headers: { "Authorization": `${token}` }
             };
             axios.post(`${base_url}/user/logout`, `${token}`, options)
                 .then((response) => {
-                    console.log("success");
                     localStorage.removeItem('sessionToken')
                     window.location.href = "/";
                 })
                 .catch((error) => {
                     console.log(error);
-                    console.log("error");
                     window.location.href="/";
                 });
         }
@@ -46,7 +48,7 @@ class HeaderContainer extends Component {
             <HeaderComponent
                 anchorEl={this.state.anchorEl}
                 handleClose={this.handleClose}
-                handleMenu={this.handleMenu}
+                handleMenu={this.handleMenu}                
             />
         )
     }

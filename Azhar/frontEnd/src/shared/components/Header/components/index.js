@@ -7,10 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { Grid } from "@mui/material";
 
-
-const HeaderComponent=({anchorEl,handleClose,handleMenu})=> {
-
+const HeaderComponent = ({ anchorEl, handleClose, handleMenu }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" >
@@ -19,16 +18,18 @@ const HeaderComponent=({anchorEl,handleClose,handleMenu})=> {
             Quiz Portal
           </Typography>
           <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {localStorage.getItem("sessionToken") &&
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle fontSize="large" />
+              </IconButton>
+            }
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -43,10 +44,13 @@ const HeaderComponent=({anchorEl,handleClose,handleMenu})=> {
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
+              sx={{top:"33px", left:"-15px",}}
             >
-              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(1)}>Profile</MenuItem>
-              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(2)}>Home</MenuItem>
-              <MenuItem sx={{backgroundColor:"#eeff41"}} onClick={() => handleClose(3)}>LogOut</MenuItem>
+              <Grid sx={{ padding: "10px" }}>
+                <Grid> <MenuItem onClick={() => handleClose(1)}>Profile</MenuItem></Grid>
+                <Grid> <MenuItem onClick={() => handleClose(2)}>Home</MenuItem></Grid>
+                <Grid> <MenuItem onClick={() => handleClose(3)}>LogOut</MenuItem></Grid>
+              </Grid>
             </Menu>
           </div>
         </Toolbar>

@@ -15,21 +15,19 @@ const AnswerDialog = ({ open, handleClose, submitResponse }) => {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
-        maxWidth="sm"
-        sx={{backgroundColor:"#eeff41"}}
+        sx={{backgroundColor:"#ffd7db"}}
       >
-        <DialogTitle>{"Your Final Score"}</DialogTitle>
+        <DialogTitle sx={{color:"#801313", alignContent:"center"}}>{"-----Final Score-----"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <p>Right Answers :{submitResponse.rightCount} / Wrong Answers :{submitResponse.wrongCount} </p>
-            <p></p>
-            <p>Total Scores  :{submitResponse.totalScore} / Total Marks   :{submitResponse.totalMarks}  </p>
-            <p></p>
+            <h3>Right Answers :{submitResponse.rightCount}</h3>
+            <h3>Wrong Answers :{submitResponse.wrongCount} </h3>
+            <h3>Scores  :{submitResponse.totalScore} / {submitResponse.totalMarks}  </h3>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
-            Agree
+          <Button onClick={handleClose} sx={{bacgroundColor:"#801313"}}>
+            Continue
           </Button>
         </DialogActions>
       </Dialog>

@@ -11,30 +11,36 @@ class HomeContainer extends Component {
 
   componentDidMount = () => {
     const token = localStorage.getItem("sessionToken");
-    const options = {
-      headers: { "Authorization": `${token}` }
-    };
-    axios.get(`${base_url}/quiz`, options)
-      .then(res => {
-        const posts = res.data.data;
-        this.setState({ posts });
-        console.log("success");
-      },
-        (error) => {
-          console.log(error);
-          console.log("error")
-        }
-
-      )
+    if (token) {
+      const options = {
+        headers: { "Authorization": `${token}` }
+      };
+      axios.get(`${base_url}/quiz`, options)
+        .then(res => {
+          const posts = res.data.data;
+          this.setState({ posts });
+        }).catch(
+          (error) => {
+            console.log(error);
+            localStorage.removeItem("sessionToken");
+            window.location.href = "/"
+          }
+        )
+    }
+    else {
+      localStorage.removeItem("sessionToken");
+      window.location.href = "/";
+    }
   }
 
   handleClick = (id) => {
-    console.log("clicked");
-    console.log("handleClick ke andar")
-    console.log(id)
     localStorage.setItem("quizId", id);
-    history.push("/quizpage");
-
+    if (localStorage.getItem("sessionToken")) {
+      history.push("/quizpage");
+    }
+    else {
+      window.location.href = "/"
+    }
   }
 
   render() {

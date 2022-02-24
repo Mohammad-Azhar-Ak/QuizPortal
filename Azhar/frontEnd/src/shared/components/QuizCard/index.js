@@ -7,16 +7,34 @@ import CustomButton from '../Button';
 
 export default function MultiActionAreaCard({ index, title, handleClick }) {
   return (
-    <Card sx={{ maxWidth: 200, backgroundColor: "#f0f4c3" }}>
-      <CardActionArea sx={{ justifyContent: "center" }}>
+    <Card sx={{
+      maxWidth: 200,
+      backgroundColor: "#f8bbd0",
+      border: "solid",
+      borderColor: "#801313",
+      textAlign: "center"
+    }}>
+      <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div">
             {title}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions style={{ justifyContent: "center" }}>
-        <CustomButton handleClick={handleClick} type="Submit" label="Play Quiz" />
+      <CardActions
+        style={{
+          justifyContent: "center",
+          backgroundColor: "#fce9ef",
+          borderTop:"solid",
+          borderTopColor:"#801313"
+        }}>
+        <CustomButton
+          handleClick={handleClick}
+          type="Submit"
+          label="Play Quiz" />
       </CardActions>
     </Card>
   );

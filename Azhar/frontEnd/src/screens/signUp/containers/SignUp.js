@@ -3,7 +3,7 @@ import { SignUpComponent } from '../components';
 import base_url from "../../../utils/api";
 import axios from "axios";
 import { isEmpty } from 'lodash';
-
+import history from '../../../utils/history';
 
 class SignUpContainer extends Component {
 
@@ -15,11 +15,13 @@ class SignUpContainer extends Component {
             open: false
         }
     }
+
     handleChange = (value, key) => {
         this.setState({
             data: { ...this.state.data, [key]: value }
         });
     }
+
     handleClick = () => {
         if (isEmpty(this.validation())) {
             const options = {
@@ -27,14 +29,11 @@ class SignUpContainer extends Component {
             };
             axios.post(`${base_url}/user/`, this.state.data, options)
                 .then((response) => {
-                    console.log(response);
                     localStorage.setItem('sessionToken', response.data.data.token);
-                    console.log("success");
                     window.location.href = "/home";
                 })
                 .catch((error) => {
                     console.log(error);
-                    console.log("error");
                     this.setState({ open: true });
                 });
         }
@@ -78,6 +77,10 @@ class SignUpContainer extends Component {
         this.setState({ open: false });
     }
 
+    handleLink = () => {
+        history.push("/")
+    }
+
     render() {
         return (
             <SignUpComponent
@@ -86,9 +89,9 @@ class SignUpContainer extends Component {
                 handleClick={this.handleClick}
                 error={this.state.error}
                 handleClose={this.handleClose}
-                open={this.state.open} />
+                open={this.state.open}
+                handleLink={this.handleLink} />
         )
-
     }
 }
 

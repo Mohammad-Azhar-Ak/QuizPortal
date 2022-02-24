@@ -1,52 +1,41 @@
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import { CustomButton, CustomPositionedSnackbar } from '../../../shared';
-import CssBaseline from '@mui/material/CssBaseline';
 import { CustomInput } from '../../../shared';
-import { CustomLink } from '../../../shared';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import { SignUpImg } from '../../../assets/images';
-import { FormControl } from '@mui/material';
+import { FormControl, Link } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '93vh',
-    backgroundColor: "#f0f4c3",
-  },
-  image: {
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundColor: "#fce9ef",
   },
   imageStyle: {
+    paddingLeft: "45px",
     padding: 30,
-    width: "80%",
-    height: "80%",
+    maxHeight: 619
   },
   paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: "#f0f4c3",
-    marginTop: "30px"
-  },
-  form: {
-    width: '100%',
-  },
-  submit: {
+    backgroundColor: "#fce9ef",
+    border: "solid",
+    borderColor: "#801313",
+    borderWidth: "10px",
+    padding: "30px"
   },
   signUpStyle: {
     padding: "30px",
-    backgroundColor: "#f0f4c3"
+    backgroundColor: "#fce9ef",
   }
 }));
 
-function SignUpComponent({ data, handleChange, handleClick, error, handleClose, open }) {
+function SignUpComponent({ data, handleChange, handleClick, error, handleClose, open, handleLink }) {
   const classes = useStyles();
 
   return (
@@ -54,7 +43,6 @@ function SignUpComponent({ data, handleChange, handleClick, error, handleClose, 
       container
       component="main"
       className={classes.root}>
-      <CssBaseline />
       <Grid
         item
         xs={false}
@@ -72,7 +60,7 @@ function SignUpComponent({ data, handleChange, handleClick, error, handleClose, 
         component={Paper}
         elevation={0}
         className={classes.signUpStyle}>
-        <div
+        <Grid
           className={classes.paper}>
           <Avatar>
             <AddCircleIcon
@@ -126,21 +114,23 @@ function SignUpComponent({ data, handleChange, handleClick, error, handleClose, 
               helperText={error.confirm_password}
               placeholder="Enter confirm password" />
           </FormControl>
-          <CustomButton
-            label='Sign Up'
-            type='submit'
-            value='Submit'
-            handleClick={handleClick} />
+          <Grid sx={{ marginTop: "10px" }}>
+            <CustomButton
+              label='Sign Up'
+              type='submit'
+              value='Submit'
+              handleClick={handleClick} />
+          </Grid>
           <Grid
             item
-            justify="center">
-            <CustomLink
-              body="Already have an account? Sign In"
-              link='/' />
+            justify="center"
+            sx={{ marginTop: "10px", color: "#801313" }}
+          >
+            <p onClick={handleLink}>Already have an account? <Link sx={{ cursor: "pointer" }}>Sign In</Link></p>
           </Grid>
-        </div>
+        </Grid>
         <CustomPositionedSnackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           open={open}
           onClose={handleClose}
           message="Email Already Exist"

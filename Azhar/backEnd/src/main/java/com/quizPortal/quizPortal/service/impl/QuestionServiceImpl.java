@@ -85,33 +85,35 @@ public class QuestionServiceImpl implements QuestionService {
 
         userSessionService.validateSession(token);
 
-        List<Question> savedList = questionDao.findAllByQuizId(quizId);
-        if(savedList==null)
+        List<Question> questionList = questionDao.findAllByQuizId(quizId);
+        if(questionList==null)
             throw new IllegalArgumentException("No questions found in this quiz.");
 
         HashMap<Integer, Boolean> responseOfUser = new HashMap<>();
         Integer rightCount=0,wrongCount=0,totalMarks=0,marksScored=0;
-
-        for(SubmitQuestionsRequest questionF : request.getListOfQuestion()) {
-            if(questionF.getId()==null || questionF.getAnswer()==null)
-                throw new IllegalArgumentException("Invalid question");
-            responseOfUser.put(questionF.getId(), questionF.getAnswer());
+        if(request.getListOfQuestion()==null)
+            throw new IllegalArgumentException("Question List cannot be null.");
+        
+        for(SubmitQuestionsRequest questions : request.getListOfQuestion()) {
+            if(questions.getId()==null || questions.getAnswer()==null)
+                throw new IllegalArgumentException("Question id or answer cannot be null.");
+            responseOfUser.put(questions.getId(), questions.getAnswer());
         }
 
-        for(Question questionB : savedList){
-            totalMarks+= questionB.getMarks();
-            if(responseOfUser.get(questionB.getId())==null)
+        for(Question questions : questionList){
+            totalMarks+= questions.getMarks();
+            if(responseOfUser.get(questions.getId())==null)
                 continue;
 
-           if(responseOfUser.get(questionB.getId()).equals(questionB.isAnswer())){
+           if(responseOfUser.get(questions.getId()).equals(questions.isAnswer())){
                rightCount++;
-               marksScored+= questionB.getMarks();
+               marksScored+= questions.getMarks();
            }
            else{
                wrongCount++;
            }
         }
-        SubmitResponse obj = new SubmitResponse(rightCount,wrongCount,marksScored,totalMarks);
-        return obj;
+        SubmitResponse submitResponse = new SubmitResponse(rightCount,wrongCount,marksScored,totalMarks);
+        return submitResponse;
     }
 }
